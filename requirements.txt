@@ -1,0 +1,7 @@
+# pip install -r requirements.txt
+Flask==2.0.2
+beautifulsoup4==4.9.1
+openai
+azure
+azure-identity
+azure-keyvault-secrets
