@@ -5,10 +5,9 @@ This is a Flask application that makes use of OpenAI API to generate text based 
 
 ## Prerequisites
 Flask
-OpenAI API Key
+OpenAI
 BeautifulSoup
 Requests
-JSON
 Azure KeyVault
 Azure Identity
 
