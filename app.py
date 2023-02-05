@@ -15,16 +15,16 @@ from azure.identity import DefaultAzureCredential
 app = Flask(__name__)
 
 
-KVUri = f"https://openaibot-kv.vault.azure.net/"
+KVUri = f"https://kv-csabot.vault.azure.net/"
 credential = DefaultAzureCredential()
 client = SecretClient(vault_url=KVUri, credential=credential)
 
-openai.api_key = client.get_secret("teamsappsecret").value
-openai.api_base =  "https://openaijorge2.openai.azure.com/" 
+openai.api_key = client.get_secret("oaik").value
+openai.api_base =  "https://openai-csabot.openai.azure.com/" # your endpoint should look like the following https://YOUR_RESOURCE_NAME.openai.azure.com/
 openai.api_type = 'azure'
-openai.api_version = '2022-12-01' 
+openai.api_version = '2022-12-01' # this may change in the future
 
-deployment_id='teams-davinci003' 
+deployment_id='gpt3davinci' #This will correspond to the custom name you chose for your deployment when you deployed a model. 
 
 
 def openai_chat_call(text):  
@@ -107,6 +107,48 @@ def function_name():
         message = jsonify({'type': 'message','text':'There was an error:'+str(e)})
         
     return message
+
+
+"""@app.route('/transcript', methods=['POST'])
+def transcript():
+    print("Here is the content that was received:")
+    content = request.json 
+    print(content)
+    prompt_list = parse_transcript(content)
+    map_list = list(map(call_openai, prompt_list))
+    return jsonify(map_list)
+def parse_transcript(text_to_parse):
+    transcript = text_to_parse
+    my_list_of_transcripts = split_and_combine(transcript, 10, 5)
+    return map(create_prompt, my_list_of_transcripts)
+def split_and_combine(list, batch_size, overlap_size):
+    my_new_list = []
+    list_size = len(list)
+    for i in range (0,list_size,batch_size):
+        number_of_elem_to_take = batch_size+overlap_size
+        
+        if number_of_elem_to_take > list_size-i:
+            number_of_elem_to_take = list_size-i
+        
+        my_new_list.append(list[i:number_of_elem_to_take])
+    return my_new_list
+def create_prompt(list_to_prompt):
+    prompt = "Summarize the following: \n"
+    for each in list_to_prompt:
+        prompt+=each["speaker"]+" said: "+each["text"]+"\n"
+    return prompt
+def call_openai(message):
+    try:
+        res = openai_chat_call(message)
+        print("OPENAI ANSWER:")
+        print(res)
+        res_text =  res['choices'][0]['text'].replace('\n', '').replace(' .', '.').strip()
+        message = {'type': 'message','text':res_text}
+    except Exception as e:
+        print(e)
+        message = {'type': 'message','text':'There was an error:'+str(e)}
+    return message
+"""
 
 if __name__ == '__main__':
    app.run()
