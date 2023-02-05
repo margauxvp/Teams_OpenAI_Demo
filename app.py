@@ -3,6 +3,8 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from functools import wraps
 from flask import request, jsonify
 from bs4 import BeautifulSoup
+import hmac
+import base64
 import os
 import requests
 import json
@@ -10,8 +12,8 @@ import openai
 from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 
-
 app = Flask(__name__)
+
 
 KVUri = f"https://openaibot-kv.vault.azure.net/"
 credential = DefaultAzureCredential()
@@ -23,6 +25,7 @@ openai.api_type = 'azure'
 openai.api_version = '2022-12-01' 
 
 deployment_id='teams-davinci003' 
+
 
 def openai_chat_call(text):  
     response = openai.Completion.create(
