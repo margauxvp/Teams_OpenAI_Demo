@@ -31,26 +31,42 @@ openai.api_version = '2022-12-01'
 # Specifying deployment ID for OpenAI engine
 deployment_id='teams-davinci003' 
 
+def verify_hmac(*auth):
+    def decorator_verify_hmac(f):
+        @wraps(f)
+        def wrapper_verify_hmac(*args, **kwargs):
+            req_body = request.data
+            auth_verify = hmac.new(base64.decodebytes(bytes(auth[0],'utf-8')),req_body,'sha256')
+            auth_header = request.environ['HTTP_AUTHORIZATION']
+            auth_string = base64.b64encode(auth_verify.digest()).decode()
+            full_string = "HMAC "+ auth_string
+            if auth_header != full_string:
+                return jsonify({"type": "message","text": "ERROR: User unauthorized!"})
+            return f(*args,**kwargs)
+        return wrapper_verify_hmac
+    return decorator_verify_hmac
+
+   
 # Defining a POST endpoint for the '/' route
 @app.route('/')
 def index():
    print('Request for index page received')
    return "<h1>Hello Azure!</h1>"
 
+def decorator_verify_hmac(f):
+    req_body = request.data
+    auth_verify = hmac.new(base64.decodebytes(bytes(auth[0],'utf-8')),req_body,'sha256')
+    auth_header = request.environ['HTTP_AUTHORIZATION']
+    auth_string = base64.b64encode(auth_verify.digest()).decode()
+    full_string = "HMAC "+ auth_string
+    if auth_header != full_string:
+        return jsonify({"type": "message","text": "ERROR: User unauthorized!"})
+
+
 # Defining a POST endpoint for the '/gpt3' route
 @app.route('/gpt3', methods=['POST'])
+@verify_hmac('FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I=')
 def function_name():
-   # Authenticate
-   security_token = b"FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I="
-   request_data = request.get_data()
-   digest = hmac.new(base64.b64decode(security_token), msg=request_data, digestmod=hashlib.sha256).digest()
-   signature = base64.b64encode(digest).decode()
-
-   return jsonify({
-           'type' : 'message',
-           'text' : "auth header: {0} <br>hmac: {1}".format(request.headers.get('Authorization').split(' ')[1], signature),
-       })
-
     # Extracting message from the POST request data
     html_message = str(request.data)
     question = html_message + ' and do not use apostrophes in your answer and write verbs fully and do use other punctuation marks'
