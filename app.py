@@ -38,8 +38,6 @@ def index():
    print('Request for index page received')
    return "<h1>Hello Azure!</h1>"
 
-MS_TEAMS_SECRET = 'FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I='
-
 # Defining a POST endpoint for the '/gpt3' route
 @app.route('/gpt3', methods=['POST'])
 def function_name():
@@ -48,7 +46,7 @@ def function_name():
         hmac_check = request.headers.get('Authorization')[5:] # header looks like: Authorization: HMAC <actual b64 string>
     except (TypeError, KeyError):
         return ('', 204)
-    dig = hmac.new(base64.b64decode(MS_TEAMS_SECRET),  # decode your key!
+    dig = hmac.new(base64.b64decode("FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I="),  # decode your key!
                    request.data  # raw bytes, not unicode
                    digestmod=hashlib.sha256).digest()
     auth = base64.b64encode(dig).decode()
