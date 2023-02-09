@@ -5,7 +5,6 @@ from functools import wraps
 from flask import request, jsonify
 from bs4 import BeautifulSoup
 import hmac
-import hashlib
 import base64
 import os
 import requests
@@ -41,28 +40,16 @@ def index():
 # Defining a POST endpoint for the '/gpt3' route
 @app.route('/gpt3', methods=['POST'])
 def function_name():
-   # Authenticate    
-    try:
-        hmac_check = request.headers.get('Authorization')[5:] # header looks like: Authorization: HMAC <actual b64 string>
-    except (TypeError, KeyError):
-        return ('', 204)
-    dig = hmac.new(base64.b64decode("FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I="),  # decode your key!
-                   request.data  # raw bytes, not unicode
-                   digestmod=hashlib.sha256).digest()
-    auth = base64.b64encode(dig).decode()
-    if hmac_check != auth:
-        return ('', 204)
-
    # Authenticate
-   #security_token = b"FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I="
-   #request_data = request.get_data()
-   #digest = hmac.new(base64.b64decode(security_token), msg=request_data, digestmod=hashlib.sha256).digest()
-   #signature = base64.b64encode(digest).decode()
+   security_token = b"FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I="
+   request_data = request.get_data()
+   digest = hmac.new(base64.b64decode(security_token), msg=request_data, digestmod=hashlib.sha256).digest()
+   signature = base64.b64encode(digest).decode()
 
-   #return jsonify({
-   #        'type' : 'message',
-   #        'text' : "auth header: {0} <br>hmac: {1}".format(request.headers.get('Authorization').split(' ')[1], signature),
-   #    })
+   return jsonify({
+           'type' : 'message',
+           'text' : "auth header: {0} <br>hmac: {1}".format(request.headers.get('Authorization').split(' ')[1], signature),
+       })
 
     # Extracting message from the POST request data
     html_message = str(request.data)
