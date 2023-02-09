@@ -62,9 +62,13 @@ def index():
 
 # Defining a POST endpoint for the '/gpt3' route
 @app.route('/gpt3', methods=['POST'])
-@verify_hmac('FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I=')
-'''
 def function_name():
+   # Authenticate
+    security_token = b"FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I="
+    request_data = request.get_data()
+    digest = hmac.new(base64.b64decode(security_token), msg=request_data, digestmod=hashlib.sha256).digest()
+    signature = base64.b64encode(digest).decode()
+
     # Extracting message from the POST request data
     html_message = str(request.data)
     question = html_message + ' and do not use apostrophes in your answer and write verbs fully and do use other punctuation marks'
@@ -92,8 +96,6 @@ def function_name():
     message = jsonify({'type': 'message','text':result})
     
     return message
-'''
-return 'hello'
 
 # Running the Flask app    
 if __name__ == '__main__':
