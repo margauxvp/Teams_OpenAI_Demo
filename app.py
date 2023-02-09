@@ -64,35 +64,30 @@ def function_name():
     # Extracting message from the POST request data
     html_message = str(request.data)
     question = html_message + ' and do not use apostrophes in your answer and write verbs fully and do use other punctuation marks'
-    
+
     # Sending the message to OpenAI for completion
-   try:
-      response = openai.Completion.create(
-               engine=deployment_id,
-               prompt= question,
-               temperature=0.9,
-               max_tokens=150,
-               top_p=1,
-               frequency_penalty=0.0,
-               presence_penalty=0.6,
-               stop=[" Human:", " AI:"]
-         )
+    response = openai.Completion.create(
+            engine=deployment_id,
+            prompt= question,
+            temperature=0.9,
+            max_tokens=150,
+            top_p=1,
+            frequency_penalty=0.0,
+            presence_penalty=0.6,
+            stop=[" Human:", " AI:"]
+        )
 
-      # Parsing the response from OpenAI
-      extract_response = response['choices'][0]['text'].replace('\n', '').replace(' .', '.').replace("'b'", '').strip()
-      
-      start = extract_response.find("'")
-      end = extract_response.find("'", start + 1)
-      result = extract_response[start+1:end]
+     # Parsing the response from OpenAI
+    extract_response = response['choices'][0]['text'].replace('\n', '').replace(' .', '.').replace("'b'", '').strip()
+    
+    start = extract_response.find("'")
+    end = extract_response.find("'", start + 1)
+    result = extract_response[start+1:end]
 
-      # Formatting the response as a JSON object that is suitable for Teams
-      message = jsonify({'type': 'message','text':result})
-      
-   except Exception as e:
-      print(e)
-      message = jsonify({'type': 'message','text':'There was an error:'+str(e)})
-   
-   return message
+    # Formatting the response as a JSON object that is suitable for Teams
+    message = jsonify({'type': 'message','text':result})
+    
+    return message
 
 # Running the Flask app    
 if __name__ == '__main__':
