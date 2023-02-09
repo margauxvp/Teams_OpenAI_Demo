@@ -18,7 +18,13 @@ credential = DefaultAzureCredential()
 client = SecretClient(vault_url=KVUri, credential=credential)
 
 # Setting API Key and API endpoint for OpenAI
-test = client.get_secret("teamsappsecret").value
+openai.api_key = client.get_secret("teamsappsecret").value
+openai.api_base =  "https://openaijorge2.openai.azure.com/" 
+openai.api_type = 'azure'
+openai.api_version = '2022-12-01' 
+
+# Specifying deployment ID for OpenAI engine
+deployment_id='teams-davinci003' 
 
 @app.route('/')
 def index():
