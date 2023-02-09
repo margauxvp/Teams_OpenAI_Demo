@@ -40,15 +40,15 @@ def index():
 @app.route('/gpt3', methods=['POST'])
 def function_name():
    # Authenticate
-    security_token = b"FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I="
-    request_data = request.get_data()
-    digest = hmac.new(base64.b64decode(security_token), msg=request_data, digestmod=hashlib.sha256).digest()
-    signature = base64.b64encode(digest).decode()
+   #security_token = b"FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I="
+   #request_data = request.get_data()
+   #digest = hmac.new(base64.b64decode(security_token), msg=request_data, digestmod=hashlib.sha256).digest()
+   #signature = base64.b64encode(digest).decode()
 
-    return jsonify({
-            'type' : 'message',
-            'text' : "auth header: {0} <br>hmac: {1}".format(request.headers.get('Authorization').split(' ')[1], signature),
-        })
+   #return jsonify({
+   #        'type' : 'message',
+   #        'text' : "auth header: {0} <br>hmac: {1}".format(request.headers.get('Authorization').split(' ')[1], signature),
+   #    })
 
     # Extracting message from the POST request data
     html_message = str(request.data)
