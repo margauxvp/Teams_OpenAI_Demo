@@ -13,6 +13,8 @@ import openai
 from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 
+MS_TEAMS_SECRET = 'FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I='
+
 # Initializing a Flask app instance
 app = Flask(__name__)
 
@@ -39,6 +41,18 @@ def index():
 # Defining a POST endpoint for the '/gpt3' route
 @app.route('/gpt3', methods=['POST'])
 def function_name():
+   # Authenticate    
+    try:
+        hmac_check = request.headers.get('Authorization')[5:] # header looks like: Authorization: HMAC <actual b64 string>
+    except (TypeError, KeyError):
+        return ('', 204)
+    dig = hmac.new(base64.b64decode(MS_TEAMS_SECRET),  # decode your key!
+                   request.data  # raw bytes, not unicode
+                   digestmod=hashlib.sha256).digest()
+    auth = base64.b64encode(dig).decode()
+    if hmac_check != auth:
+        return ('', 204)
+
    # Authenticate
    #security_token = b"FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I="
    #request_data = request.get_data()
