@@ -66,6 +66,7 @@ def decorator_verify_hmac(f):
 # Defining a POST endpoint for the '/gpt3' route
 @app.route('/gpt3', methods=['POST'])
 @verify_hmac('FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I=')
+'''
 def function_name():
     # Extracting message from the POST request data
     html_message = str(request.data)
@@ -94,7 +95,7 @@ def function_name():
     message = jsonify({'type': 'message','text':result})
     
     return message
-
+'''
 # Running the Flask app    
 if __name__ == '__main__':
     app.run(debug=True)
