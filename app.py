@@ -88,7 +88,7 @@ def decorator_verify_hmac(f):
         return jsonify({"type": "message","text": "ERROR: User unauthorized!"})
 
 @app.route('/gpt3', methods=['POST'])
-@verify_hmac('UNOR/kZ/BBugXfMZxfQshZnNToa3onK9ZWRV1TTlTa8=')
+@verify_hmac('UNOR/kZ/FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I=')
 def function_name():
     content = request.json 
     html_message = extract_text(content["attachments"])
