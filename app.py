@@ -65,7 +65,7 @@ def decorator_verify_hmac(f):
 
 # Defining a POST endpoint for the '/gpt3' route
 @app.route('/gpt3', methods=['POST'])
-@verify_hmac('FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I=')
+@verify_hmac('/58WCGVzNZVFyhDWCbxtb+uX5+qglylJiXDCKouZ9u0=')
 '''
 def function_name():
     # Extracting message from the POST request data
