@@ -14,7 +14,6 @@ import openai
 from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 
-MS_TEAMS_SECRET = 'FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I='
 
 # Initializing a Flask app instance
 app = Flask(__name__)
@@ -38,6 +37,8 @@ deployment_id='teams-davinci003'
 def index():
    print('Request for index page received')
    return "<h1>Hello Azure!</h1>"
+
+MS_TEAMS_SECRET = 'FQHak9CmIyFiAcpr+zvzH96QzkH9gjknCNOte6buF+I='
 
 # Defining a POST endpoint for the '/gpt3' route
 @app.route('/gpt3', methods=['POST'])
