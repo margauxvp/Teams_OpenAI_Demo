@@ -5,6 +5,7 @@ from functools import wraps
 from flask import request, jsonify
 from bs4 import BeautifulSoup
 import hmac
+import hashlib
 import base64
 import os
 import requests
