@@ -35,5 +35,5 @@ The cleaned text is passed as a prompt to the OpenAI API.
 The response from the OpenAI API is returned to the Teams user.
 
 ## How to use
-To run the local app, you can execute the following command in the terminal:
-flask --app app.py run. You can then make a POST request to the endpoint /gpt3 to generate text based on a prompt through tools like Postman/Insomnia.
+![Screenshot 2023-02-22 184150](https://user-images.githubusercontent.com/33750077/220710524-3afda81a-1338-45f0-8c44-777649252cc7.jpg)
+
