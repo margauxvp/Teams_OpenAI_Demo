@@ -20,18 +20,12 @@ This is a Flask application that makes use of Azure OpenAI API to generate text 
 * Azure Identity
 
 ## Azure Key Vault
-The API key for the OpenAI LLM model is stored in the Azure KeyVault, and the SecretClient is used to access the API key.
-In a second stage, Azure Key Vault also holds the scurity token that you receive when creating an outgoing Webhook in Teams. This is used to authenticate calls between Teams and the designated outside service.
+The API key for the OpenAI LLM model is stored in Azure Key Vault, and the SecretClient is used to access the API key.
+In a second stage, Azure Key Vault also holds the security token that you receive when creating an outgoing Webhook in Teams. This is used to authenticate calls between Teams and the designated outside service.
 
 ## OpenAI API
 This app uses the OpenAI API to generate text based on the prompt. The deployment ID teams-davinci003 is used to specify which OpenAI deployment to use.
 
-## Features
-The app receives a POST request containing HTML text.
-The HTML text is cleaned using the BeautifulSoup library to extract the text content.
-The cleaned text is passed as a prompt to the OpenAI API.
-The response from the OpenAI API is returned to the Teams user.
-
-## How to use
+## Demonstration
 ![Screenshot 2023-02-22 184150](https://user-images.githubusercontent.com/33750077/220710524-3afda81a-1338-45f0-8c44-777649252cc7.jpg)
 
