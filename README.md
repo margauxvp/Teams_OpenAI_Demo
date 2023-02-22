@@ -6,13 +6,10 @@ This is a Flask application that makes use of Azure OpenAI API to generate text 
 ## Steps
 1. Deploy an OpenAI Model e.g. text-davinci-003 [tutorial](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/create-resource?pivots=web-portal)
 2. Create a Flask app that is able to call the OpenAI model locally with the /gpt3 endpoint [code](https://github.com/margauxvp/OpenAI_FlaskApp/blob/main/app.py)
-4. Create temporary outgoing webhook in Teams to get the authentication token [tutorial](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-outgoing-webhook?tabs=urljsonpayload%2Cdotnet)
-5. Make some changes to your code 
-3. Host the app on publicly accessible URL by making some changes [deployment center](https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=applevel#use-the-deployment-center) or [detailed tutorial](https://learn.microsoft.com/en-us/azure/app-service/quickstart-python?tabs=flask%2Cwindows%2Cazure-portal%2Cvscode-deploy%2Cdeploy-instructions-azportal%2Cterminal-bash%2Cdeploy-instructions-zip-azcli) 
-
-5. Adapt the code to make your app 
-
-
+3. Create temporary outgoing webhook in Teams to get the authentication token [tutorial](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-outgoing-webhook?tabs=urljsonpayload%2Cdotnet)
+4. Finalize the app [code](https://github.com/margauxvp/Teams_OpenAI_Demo/blob/main/app.py)
+5. Host the app on publicly accessible URL by making some changes [deployment center](https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=applevel#use-the-deployment-center) or [detailed tutorial](https://learn.microsoft.com/en-us/azure/app-service/quickstart-python?tabs=flask%2Cwindows%2Cazure-portal%2Cvscode-deploy%2Cdeploy-instructions-azportal%2Cterminal-bash%2Cdeploy-instructions-zip-azcli) 
+6. Replace the endpoint URL with your Web App in the outgoing Webhook
 
 ## Requirements
 * Flask
