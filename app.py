@@ -66,7 +66,7 @@ def decorator_verify_hmac(f):
 
 # Defining a POST endpoint for the '/gpt3' route
 @app.route('/gpt3', methods=['POST'])
-@verify_hmac('/58WCGVzNZVFyhDWCbxtb+uX5+qglylJiXDCKouZ9u0=') # if we remove this, everything works
+@verify_hmac(client.get_secret("teamstoken").value) # hmac part
 
 def function_name():
     # Extracting message from the POST request data
