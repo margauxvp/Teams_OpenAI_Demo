@@ -31,6 +31,7 @@ openai.api_version = '2022-12-01'
 # Specifying deployment ID for OpenAI engine
 deployment_id='teams-davinci003' 
 
+# Verifies the authenticity of the request using HMAC-based authentication.
 def verify_hmac(*auth):
     def decorator_verify_hmac(f):
         @wraps(f)
