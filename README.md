@@ -1,4 +1,5 @@
 # Teams_OpenAI_Demo
+This sample app is designed to make it easy to integrate the powerful capabilities of OpenAI into your Microsoft Teams workflow. With just a simple POST request, you can send a message to OpenAI, receive a response, and have it formatted as a JSON object that can be easily sent to Microsoft Teams. 
 
 ## Flask OpenAI App in Teams
 This is a Flask application that makes use of Azure OpenAI API to generate text based on a given prompt. This app can then be implemented in Teams as a second step to have an OpenAI Bot experience. Azure Web App will be used to host my app and expose it to the public internet. Other ways to make your app able to integrate with Teams exist, e.g. exposing localhost via tunnelling service such as ngrok.
